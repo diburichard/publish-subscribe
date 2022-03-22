@@ -48,15 +48,13 @@ services:
   #   - cotas
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq-service
+    container_name: rabbitmq-publish-sucriber
     environment:
-      - RABBITMQ_DEFAULT_USER=cotasdeveloper
-      - RABBITMQ_DEFAULT_PASS=cotasdeveloper
+      - RABBITMQ_DEFAULT_USER=developer
+      - RABBITMQ_DEFAULT_PASS=developer
     ports:
     - 5672:5672
-    - 15672:15672
-    networks:
-    - truora
+    - 15672:15672   
   #prometheus:
   #  image: prom/prometheus
   #  container_name: prometheus-service
@@ -84,7 +82,3 @@ services:
   #   - ACCEPT_EULA=Y
   #   networks:
   #   - cotas
-
-networks:
-  truora:
-    name: truora-net

@@ -1,0 +1,90 @@
+version: "3.5"
+
+services:
+  # consul:
+  #   image: consul
+  #   container_name: consul-service
+  #   restart: always
+  #   ports:
+  #   - 8500:8500
+  #   networks:
+  #   - cotas
+  # jaeger:
+  #   image: jaegertracing/all-in-one
+  #   container_name: jaeger-service
+  #   restart: always
+  #   ports:
+  #   - 5775:5775/udp
+  #   - 5778:5778
+  #   - 6831:6831/udp
+  #   - 6832:6832/udp
+  #   - 9411:9411
+  #   - 14268:14268
+  #   - 16686:16686
+  #   environment:
+  #   - COLLECTOR_ZIPKIN_HTTP_PORT=9411
+  #   networks:
+  #   - cotas
+  #fabio:
+  #  image: fabiolb/fabio
+  #  container_name: fabio-service
+  #  environment:
+  #  - FABIO_REGISTRY_CONSUL_ADDR=consul-service:8500
+  #  ports:
+  #  - 9998:9998
+  #  - 9999:9999
+  #  networks:
+  #  - cotas
+  #  depends_on:
+  #  - consul
+  # config:
+  #   image: hyness/spring-cloud-config-server
+  #   container_name: config-service
+  #   environment:
+  #   - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=http://tidtc-aztefo-01:8080/tfs/DDTI/MS.COTAS/_git/MS.COTAS.CONFIG
+  #   ports:
+  #   - 8888:8888
+  #   networks:
+  #   - cotas
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-service
+    environment:
+      - RABBITMQ_DEFAULT_USER=cotasdeveloper
+      - RABBITMQ_DEFAULT_PASS=cotasdeveloper
+    ports:
+    - 5672:5672
+    - 15672:15672
+    networks:
+    - truora
+  #prometheus:
+  #  image: prom/prometheus
+  #  container_name: prometheus-service
+  #  ports:
+  #  - 9090:9090
+  #  networks:
+  #  - cotas
+  #  volumes:
+  #  - /home/cotas/prometheus.yml:/etc/prometheus/prometheus.yml
+  #grafana:
+  #  image: grafana/grafana
+  #  container_name: grafana-service
+  #  ports:
+  #  - 3000:3000
+  #  networks:
+  #  - cotas
+  #  depends_on:
+  #  - prometheus
+  # log:
+  #   image: datalust/seq
+  #   container_name: log-service
+  #   ports:
+  #   - 5341:80
+  #   environment:
+  #   - ACCEPT_EULA=Y
+  #   networks:
+  #   - cotas
+
+networks:
+  truora:
+    name: truora-net
